@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "mcp_scanner"
+version = "0.1.0"
+description = "A focused CLI security tool that discovers and audits Model Context Protocol (MCP) endpoints on web servers and APIs."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "MCP Scanner Authors" }
+]
+keywords = ["security", "mcp", "scanner", "audit", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Internet :: WWW/HTTP",
+]
+dependencies = [
+    "httpx[http2]>=0.27.0",
+    "click>=8.1.0",
+    "rich>=13.7.0",
+    "anyio>=4.3.0",
+]
+
+[project.scripts]
+mcp-scanner = "mcp_scanner.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-httpx>=0.30.0",
+    "coverage>=7.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mcp_scanner*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["mcp_scanner"]
+omit = ["tests/*"]
